@@ -16,6 +16,12 @@
 		<nxparser.version>3.0.0-SNAPSHOT</nxparser.version>
 	</properties>
 
+	<scm>
+		<connection>scm:git:git@github.com:kaefer3000/timeservlet.git</connection>
+		<url>scm:git:git@github.com:kaefer3000/timeservlet.git</url>
+		<developerConnection>scm:git:git@github.com:kaefer3000/timeservlet.git</developerConnection>
+	</scm>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
