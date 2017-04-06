@@ -18,7 +18,7 @@
 
 	<scm>
 		<connection>scm:git:git@github.com:kaefer3000/timeservlet.git</connection>
-		<url>scm:git:git@github.com:kaefer3000/timeservlet.git</url>
+		<url>https://github.com/kaefer3000/timeservlet</url>
 		<developerConnection>scm:git:git@github.com:kaefer3000/timeservlet.git</developerConnection>
 	</scm>
 
