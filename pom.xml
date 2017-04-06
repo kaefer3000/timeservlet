@@ -125,6 +125,7 @@
 				<configuration>
 					<!-- we annotate instead of using web.xml -->
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<warName>timeservlet</warName>
 				</configuration>
 			</plugin>
 		</plugins>  
