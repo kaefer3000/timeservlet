@@ -1,10 +1,6 @@
 package edu.kit.aifb.tok.timeservlet;
 
 import java.util.EnumSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
 import javax.servlet.DispatcherType;
@@ -14,8 +10,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletRegistration;
 import javax.servlet.annotation.WebListener;
-
-import org.semanticweb.yars.nx.Nodes;
 
 @WebListener
 public class TimeServletContext implements ServletContextListener {
@@ -33,7 +27,9 @@ public class TimeServletContext implements ServletContextListener {
 		ServletRegistration sr = _ctx.addServlet("Publishing the current time",
 				org.glassfish.jersey.servlet.ServletContainer.class);
 		sr.addMapping("/*");
-		sr.setInitParameter("jersey.config.server.provider.packages", this.getClass().getPackage().getName() + ";");
+		sr.setInitParameter(org.glassfish.jersey.server.ServerProperties.PROVIDER_PACKAGES,
+				this.getClass().getPackage().getName() + ","
+						+ org.semanticweb.yars.jaxrs.JerseyAutoDiscoverable.class.getPackage().getName());
 
 		FilterRegistration fr;
 
