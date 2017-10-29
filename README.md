@@ -1,11 +1,17 @@
 # timeservlet
-Servlet to supply the current time in a triple:
+Servlet to be deployed in a servlet container.
+Alternatively, the servlet can be started using `mvn jetty:run`.
+The servlet supplies the current time in a triple:
 ```bash
 $ rapper http://localhost:8080/
 ```
 yields
-```N3
-<http://localhost:8080/> <http://purl.org/dc/terms/created> "2017-10-30T02:25:05.843Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+```Turtle
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<>
+    dct:created "2017-10-29T15:53:44.498Z"^^xsd:dateTime .
 ```
 ## Configuration
 You can set the speed at which time passes (from startup time) in two ways:
