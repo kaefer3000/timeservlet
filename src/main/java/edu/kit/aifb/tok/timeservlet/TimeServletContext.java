@@ -1,7 +1,8 @@
 package edu.kit.aifb.tok.timeservlet;
 
+import java.util.Calendar;
 import java.util.EnumSet;
-import java.util.logging.Logger;
+import java.util.GregorianCalendar;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
@@ -14,7 +15,9 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class TimeServletContext implements ServletContextListener {
 
-	final static Logger _log = Logger.getLogger(TimeServletContext.class.getName());
+	public static final String STARTUPTIME_KEY = "timeservlet.startuptime";
+	public static final String SPEEDUPFACTOR_KEY = "timeservlet.speedupfactor";
+	public static final double SPEEDUPFACTOR_DEFAULT = 1;
 
 	ServletContext _ctx;
 
@@ -22,6 +25,24 @@ public class TimeServletContext implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce) {
 
 		_ctx = sce.getServletContext();
+		_ctx.setAttribute(STARTUPTIME_KEY, GregorianCalendar.getInstance().getTimeInMillis());
+
+		double speedupfactor = SPEEDUPFACTOR_DEFAULT;
+		try {
+			speedupfactor = Double.parseDouble(System.getProperty(SPEEDUPFACTOR_KEY));
+		} catch (NumberFormatException e) {
+			_ctx.log("Could not parse property from system property: ", e);
+		} catch (NullPointerException e) {
+			// null means no value
+		}
+		try {
+			speedupfactor = Double.parseDouble(_ctx.getInitParameter(SPEEDUPFACTOR_KEY));
+		} catch (NumberFormatException e) {
+			_ctx.log("Could not parse property from servlet context: ", e);
+		} catch (NullPointerException e) {
+			// null means no value
+		}
+		_ctx.setAttribute(SPEEDUPFACTOR_KEY, speedupfactor);
 
 		// Register Servlet
 		ServletRegistration sr = _ctx.addServlet("Publishing the current time",
@@ -41,7 +62,7 @@ public class TimeServletContext implements ServletContextListener {
 			fr = _ctx.addFilter("cross-origin", "org.apache.catalina.filters.CorsFilter");
 			fr.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
 		} else {
-			_log.warning("Please configure CORS for your server.");
+			_ctx.log("Please configure CORS for your server.");
 		}
 
 	}
