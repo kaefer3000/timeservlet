@@ -1,6 +1,5 @@
 package edu.kit.aifb.tok.timeservlet;
 
-import java.util.Calendar;
 import java.util.EnumSet;
 import java.util.GregorianCalendar;
 
@@ -42,6 +41,7 @@ public class TimeServletContext implements ServletContextListener {
 		} catch (NullPointerException e) {
 			// null means no value
 		}
+		_ctx.log("running with speedup factor " + speedupfactor);
 		_ctx.setAttribute(SPEEDUPFACTOR_KEY, speedupfactor);
 
 		// Register Servlet
