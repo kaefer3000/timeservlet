@@ -35,7 +35,7 @@ public class TimeServlet {
 		
 		Calendar now = GregorianCalendar.getInstance();
 		long diff = now.getTimeInMillis() - (long) _ctx.getAttribute(TimeServletContext.STARTUPTIME_KEY);
-		now.setTimeInMillis(now.getTimeInMillis()
+		now.setTimeInMillis((long) _ctx.getAttribute(TimeServletContext.STARTUPTIME_KEY)
 				+ (long) ((double) _ctx.getAttribute(TimeServletContext.SPEEDUPFACTOR_KEY) * diff));
 
 		Node[] triple = new Node[] { new Resource(uriinfo.getAbsolutePath().toString()), DCTERMS.CREATED,
